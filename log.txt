@@ -1,0 +1,7 @@
+10/2
+Goals: 
+compare night and day
+compare weekdays and weekends
+compare energy usage with weather correlations
+
+
