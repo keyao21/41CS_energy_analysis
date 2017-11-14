@@ -1,7 +1,18 @@
-10/2
-Goals: 
-compare night and day
-compare weekdays and weekends
-compare energy usage with weather correlations
+GOALS: 
+compare night and day -- increase averaging window size and make graphs look better
+convert jupyter notebooks to scripts
+check ashrae recommended night vs day energy consumption
+
+10/2:
+basic night and day comparison working
+
+11/9:
+compare night and day -- get bar graphs pretty nice looking
+
+11/13:
+compared weekdays and weekends on jupyter notebook
+compared energy usage with weather correlations on jupyter notebook
+
+
 
 
