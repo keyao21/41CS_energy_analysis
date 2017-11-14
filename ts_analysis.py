@@ -1,7 +1,9 @@
 import pandas as pd
 from datetime import datetime
 import get_clean_data as Data
+import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.style.use('ggplot')
 import os
 '''
 This is some exploratory time series analysis 
@@ -19,7 +21,7 @@ def getData(overall=True, start=1483241304000, end=1506828504000):
     return data
 
 
-def getTS(filename=None, from_memory=True, overall=True, start=1483241304000, end=1506828504000):
+def getTS(filename=None, from_memory=True, overall=True, start, end):
     # get csv data ts file from current directory
     if from_memory and filename:            
         ts = pd.read_csv(filename)
@@ -36,7 +38,7 @@ def getTS(filename=None, from_memory=True, overall=True, start=1483241304000, en
     return ts
 
 
-def compareNightDay(filename, overall=True, start=1483241304000, end=1506828504000):
+def compareNightDay(filename, overall=True, start, end):
     '''
     Given the time series with a datetime index, 
     find the difference between night (12:00 am) and 
@@ -71,9 +73,9 @@ def compareNightDay(filename, overall=True, start=1483241304000, end=15068285040
         # start = 1500828504000
         # end = 1506828504000
         # FOR NOW WE WILL USE PREDOWNLOADED DATA
+        all_diffs = []
         for dirname, subdir, filenames in os.walk('distribution_board_data'):
             for filename in filenames:
-                print( filename )
                 ts = pd.read_csv('distribution_board_data/{}'.format(filename), header=None)
                 ts[0] = pd.to_datetime(ts[0])
 
@@ -97,15 +99,21 @@ def compareNightDay(filename, overall=True, start=1483241304000, end=15068285040
                 plt.plot(night)
                 plt.title(board)
                 plt.savefig('plots/distribution_boards/{}.pdf'.format(board), format='pdf')
+                plt.close()
                 diff = day - night
                 print( '\n{}'.format(board))
-                print( diff.describe() )
-                print( '\n=====================')
+                print( 'Average difference between day and night energy usage: {}'.format(diff.mean()) )
+                print( '\n====================================================================')
+                all_diffs.append([board, diff.mean()])
 
+        plt.figure()
+        df = pd.DataFrame(all_diffs).sort_values(1, ascending=False)
+        df.columns = ['Distribution_Boards', 'Avg_Diff_Day_Night']
+        df = df.set_index('Distribution_Boards')
+        df.plot(kind='bar')
+        plt.tight_layout()
         plt.show()
-
-
-
+        return all_diffs
     return 0
 
 def compareWeekends():
@@ -126,6 +134,6 @@ def compareWeather():
 if __name__ == "__main__":
     # plt.close('all')
     filename = 'THIS_YEAR.csv'
-    compareNightDay(filename, overall=False)
+    all_diffs = compareNightDay(filename, overall=False)
 
 
