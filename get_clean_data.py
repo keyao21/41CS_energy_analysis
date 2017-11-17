@@ -98,9 +98,13 @@ if __name__ == "__main__":
     # start = 1498867200000 # 7/1/17
     # end   = 1506828504000 # 9/30/17 
 
-    start = 1451606400000 # 1/1/2016
-    end = 1483228799000 # 12/31/2016
+    # start = 1451606400000 # 1/1/2016
+    # end = 1483228799000 # 12/31/2016
     
+    start = 1420074061000 #1/1/2015
+    end = 1451610061000 #1/1/2016
+
+
     # start = datetime(2017,10,1,0,0).timestamp()
     # end = datetime(2017,10,17,0,0).timestamp()
     # start = 1448946000000
@@ -109,7 +113,7 @@ if __name__ == "__main__":
     data = get_distribution_boards(start=start, end=end)
     data = pd.DataFrame(data)
     print (data.head())
-    data.to_csv('distribution_bds.csv')
+    data.to_csv('distribution_bds_2015.csv')
     plt.figure()
     data.plot()
     plt.savefig('distribution_bds.pdf', format='pdf')
