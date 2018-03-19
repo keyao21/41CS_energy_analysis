@@ -1,10 +1,11 @@
 import json
 from io import StringIO
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 import powerdash_info
 import requests
 import matplotlib.pyplot as plt
+import time as ptime
 
 def query_powerdash(start, end, board_name):
     payload = {'start': start, 'end': end, 'dgm': powerdash_info.powerdash_name_to_dgm[board_name],
@@ -80,6 +81,27 @@ def get_overall(start, end, db=None):
     # return data
 
 
+def get_recent(hours, board_name):
+    start = datetime.now() - timedelta(hours=hours)
+    end = datetime.now()
+    start = int(ptime.mktime(start.timetuple())*1000)
+    end = int(ptime.mktime(end.timetuple())*1000)
+
+    # data = get_overall(start, end)
+    data = get_distribution_boards(start, end)
+    # remove duplicated indexes
+    for key, value in data.items():
+        data[key] = value[~value.index.duplicated(keep='last')]
+
+    data = pd.DataFrame(data)
+    # data = data[board_name]
+    # data['minute'] = [ts.minute for ts in data.index]
+    # print(data.groupby('minute').mean())
+    print( data )
+    print( data[board_name] )
+    return( data[board_name] )
+
+
 class cache_data:
     def __init__(self, start, end, board_name, data):
         self.start = start
@@ -96,20 +118,34 @@ class cache_data:
 if __name__ == "__main__":
     # start = 1483241304000 # 1/1/17
     # end   = 1509561781000 # 11/1/17
-    start = 1451606400000 # 1/1/2016
-    end = 1483228799000 # 12/31/2016
+    # start = 1451606400000 # 1/1/2016
+    # end = 1483228799000 # 12/31/2016
 
     # start = 1420074061000 #1/1/2015
     # end = 1451610061000 #1/1/2016
-
-    print(start, end)
-
-    # data = get_overall(start, end)
-    data = get_distribution_boards(start, end)
-    data = pd.DataFrame(data)
-    print (data.head())
-    data.to_csv('../../smith_eng/2016_distboards.csv')
+    # start = '1/31/2018'
     
+    board_name = 'roof mechanical'
+    get_recent(hours=1, board_name=board_name)
+
+    # start = datetime.now() - timedelta(days=1)
+    # end = datetime.now()
+    # start = int(ptime.mktime(start.timetuple())*1000)
+    # end = int(ptime.mktime(end.timetuple())*1000)
+
+    # # data = get_overall(start, end)
+    # data = get_distribution_boards(start, end)
+    # # remove duplicated indexes
+    # for key, value in data.items():
+    #     data[key] = value[~value.index.duplicated(keep='last')]
+
+    # data = pd.DataFrame(data)
+    # print( data['roof mechanical'].head() )
+    
+    # print (data.head())
+
+    # data.to_csv('../data/recent.csv')
+
 
     # data = get_distribution_boards(start=start, end=end)
     # data = pd.DataFrame(data)
