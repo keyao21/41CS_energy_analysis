@@ -11,10 +11,10 @@ import pandas as pd
 data =  {
         "Inputs": {
                 "input1": {
-                    "ColumnNames": ["DATE", "DB", "WB", "Hour", "Minute", "Day", "Weekend", "Utility Subtotal"],
+                    "ColumnNames": ["DATE", "DB", "WB", "Hour", "Minute", "Day", "Weekend", "Utility Subtotal", "DateMonth", "DateDay"],
                     "Values": [ 
-                                [ "", "0", "0", "0", "0", "0", "0", "value" ], 
-                                [ "", "1", "100", "0", "100", "100", "0", "value" ] 
+                                [ "2016-12-31T21:00:00", "0", "0", "0", "0", "0", "0", "0", "0", "0" ], 
+                                [ "2016-12-31T21:00:00", "1", "100", "0", "100", "100", "0", "0", "0", "0" ] 
                               ]
                         },        
                 },
@@ -36,7 +36,7 @@ try:
     # result = json.loads(response.read().decode(encoding))
     result = response.read()
     print(result)
-    #  print(json.dumps(result, indent=2))
+    # print(json.dumps(result, indent=2))
 
 except urllib.error.HTTPError as error:
     print("The request failed with status code: " + str(error.code))

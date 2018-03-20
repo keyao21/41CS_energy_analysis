@@ -24,5 +24,5 @@ if __name__ == '__main__':
 	board_name = 'overall utilities'
 	csv_data = query_powerdash_recent(elapsed_min, board_name)
 	data = pd.read_csv(csv_data)
-	print(data)
+	print(data[['time', 'Total KW']])
 

@@ -92,9 +92,10 @@ def weatherResponse():
     # Day = weekday_mapper[datetime.now().weekday()]
     Day = datetime.now().weekday()+1 #python is zero indexed, model is not!!
     Weekend = 1 if datetime.now().weekday()==6 or datetime.now().weekday()==6 else 0
-
+    DateMonth = datetime.now().month
+    DateDay = datetime.now().day
     # print([DATE, DB, WB, Hour, Minute, Day, Weekend])
-    return DATE, DB, WB, Hour, Minute, Day, Weekend
+    return DATE, DB, WB, Hour, Minute, Day, Weekend, DateMonth, DateDay
 
 if __name__ == '__main__':
-    weatherResponse()
+    print( weatherResponse() )
