@@ -82,7 +82,7 @@ def get_overall(start, end, db=None):
 
 
 def get_recent(hours, board_name):
-    start = datetime.now() - timedelta(hours=hours)
+    start = datetime.now() - timedelta(days=hours)
     end = datetime.now()
     start = int(ptime.mktime(start.timetuple())*1000)
     end = int(ptime.mktime(end.timetuple())*1000)
