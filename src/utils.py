@@ -31,12 +31,17 @@ def get_prediction(weather_data):
 
 	testDate = "{:%Y-%m-%dT%H:%M:%S}".format(datetime.now())
 	test_data = [ testDate, str(int(DB)), str(int(WB)), str(Hour), str(Minute), str(Day), str(Weekend), str(DateMonth), str(DateDay), "0" ]
+	# test_data2 = ['3/20/2018 6:43:03 PM', '40', '32', '18', '1063', '2', '0', '3', '20', '0']
+	# test_data3 = ['3/20/2018 8:43:03 PM', '36', '32', '20', '1063', '2', '0', '3', '20', '0']
+
 	data =  {
 	        "Inputs": {
 	                "input1": {
 	                    "ColumnNames": ["DATE", "DB", "WB", "Hour", "Minute", "Day", "Weekend", "DateMonth", "DateDay", "Utility Subtotal"],
 	                    "Values": [ 
 	                                test_data 
+	                                # test_data2, 
+	                                # test_data3
 	                              ]
 	                        },        
 	                },
@@ -63,7 +68,7 @@ def get_prediction(weather_data):
 	    # print( results['output1'] )
 	    for output in results:
 	    	# print(results[output]['value']['Values'])
-	    	return results[output]['value']['Values']
+	    	return results[output]['value']['Values'][0]
 
 
 
@@ -71,9 +76,9 @@ def get_prediction(weather_data):
 	    print("The request failed with status code: " + str(error.code))
 	    print(error.info())
 
-
 if __name__ == '__main__':
-	print(query_powerdash_recent(elapsed_min=2, board_name='overall utilities'))
-	weather_data = weatherResponse()
-	print(get_prediction(weather_data))
-
+	# print(query_powerdash_recent(elapsed_min=2, board_name='overall utilities'))
+	while(True):
+		weather_data = weatherResponse()
+		print(get_prediction(weather_data))
+		ptime.sleep(5)

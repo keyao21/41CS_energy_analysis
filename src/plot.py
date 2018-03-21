@@ -4,8 +4,8 @@ import matplotlib.patches as mpatches
 plt.style.use('ggplot')
 import numpy as np
 
-filename = 'results/results_2015_roof.csv'
-filename = 'results/results_2015_overallutilities.csv'
+filename = '../results/results_2015_roof.csv'
+filename = '../results/results_2015_overallutilities.csv'
 data = pd.read_csv(filename, index_col=False)
 data.DATE = data.DATE.apply(lambda x: pd.to_datetime(x) )
 data = data.set_index('DATE')
