@@ -122,29 +122,28 @@ if __name__ == "__main__":
     # end = 1483228799000 # 12/31/2016
 
     # start = 1420074061000 #1/1/2015
-    # end = 1451610061000 #1/1/2016
+    start = 1451610061000 #1/1/2016
     # start = '1/31/2018'
     
-    board_name = 'roof mechanical'
-    get_recent(hours=1, board_name=board_name)
+    # board_name = 'roof mechanical'
+    # get_recent(hours=1, board_name=board_name)
 
     # start = datetime.now() - timedelta(days=1)
-    # end = datetime.now()
+    end = datetime.now()
     # start = int(ptime.mktime(start.timetuple())*1000)
-    # end = int(ptime.mktime(end.timetuple())*1000)
+    end = int(ptime.mktime(end.timetuple())*1000)
 
-    # # data = get_overall(start, end)
+    data = get_overall(start, end)
     # data = get_distribution_boards(start, end)
-    # # remove duplicated indexes
-    # for key, value in data.items():
-    #     data[key] = value[~value.index.duplicated(keep='last')]
+    # remove duplicated indexes
+    for key, value in data.items():
+        data[key] = value[~value.index.duplicated(keep='last')]
 
-    # data = pd.DataFrame(data)
+    data = pd.DataFrame(data)
     # print( data['roof mechanical'].head() )
     
-    # print (data.head())
-
-    # data.to_csv('../data/recent.csv')
+    print (data.head())
+    data.to_csv('../data/all_data.csv')
 
 
     # data = get_distribution_boards(start=start, end=end)

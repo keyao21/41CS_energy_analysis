@@ -30,14 +30,16 @@ def get_prediction(weather_data):
 	DateDay = weather_data[8]
 
 	testDate = "{:%Y-%m-%dT%H:%M:%S}".format(datetime.now())
-	test_data = [ testDate, str(int(DB)), str(int(WB)), str(Hour), str(Minute), str(Day), str(Weekend), str(DateMonth), str(DateDay), "0" ]
+	test_data = [ "100000000", testDate, str(int(DB)), str(int(WB)), str(Hour), str(Minute), 
+					str(Day), str(Weekend), str(DateMonth), str(DateDay), "0" ]
 	# test_data2 = ['3/20/2018 6:43:03 PM', '40', '32', '18', '1063', '2', '0', '3', '20', '0']
 	# test_data3 = ['3/20/2018 8:43:03 PM', '36', '32', '20', '1063', '2', '0', '3', '20', '0']
 
 	data =  {
 	        "Inputs": {
 	                "input1": {
-	                    "ColumnNames": ["DATE", "DB", "WB", "Hour", "Minute", "Day", "Weekend", "DateMonth", "DateDay", "Utility Subtotal"],
+	                    "ColumnNames": ["Column 0", "time", "DB", "WB", "Hour", "Minute", "Day", "Weekend", 
+	                    				"DateMonth", "DateDay", "Utility Subtotal"],
 	                    "Values": [ 
 	                                test_data 
 	                                # test_data2, 

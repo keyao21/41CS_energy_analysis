@@ -29,12 +29,12 @@ DateDay = weather_data[8]
 # print(DATE)
 testDate = "{:%Y-%m-%dT%H:%M:%S}".format(datetime.now())
 # testing ml pipe
-test_data = [ testDate, str(int(DB)), str(int(WB)), str(Hour), str(Minute), str(Day), str(Weekend), str(DateMonth), str(DateDay), "0" ]
+test_data = [ "0", testDate, str(int(DB)), str(int(WB)), str(Hour), str(Minute), str(Day), str(Weekend), str(DateMonth), str(DateDay), "0" ]
 # print( test_data )
 data =  {
         "Inputs": {
                 "input1": {
-                    "ColumnNames": ["DATE", "DB", "WB", "Hour", "Minute", "Day", "Weekend", "DateMonth", "DateDay", "Utility Subtotal"],
+                    "ColumnNames": ["Column 0", "time", "DB", "WB", "Hour", "Minute", "Day", "Weekend", "DateMonth", "DateDay", "Utility Subtotal"],
                     "Values": [ 
                                 test_data 
                               ]
